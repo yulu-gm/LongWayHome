@@ -20,8 +20,8 @@ Codex 每轮执行时应：
 
 - 当前任务：无
 - 当前阻塞：无
-- 下一建议任务：Task 5.2 EventDirector
-- 最近验证：`dotnet test tests\Godot_V2.Tests\Godot_V2.Tests.csproj` 通过，54/54 tests passed；`dotnet build Godot_V2.csproj` 通过，0 warnings / 0 errors
+- 下一建议任务：Task 5.3 EventChoicePanel
+- 最近验证：`dotnet test tests\Godot_V2.Tests\Godot_V2.Tests.csproj` 通过，58/58 tests passed；`dotnet build Godot_V2.csproj` 通过，0 warnings / 0 errors
 - 邮件通知要求：每完成一个任务必须发送邮件；发送失败也必须记录原因
 - 视觉要求：实现时必须参考 `design.png` 与 `docs/road_trip_scene_visual_reference_cn.md` 的 2.5D 公路旅行氛围；无法逼近时更新 `docs/road_trip_visual_asset_gaps.md`
 
@@ -58,7 +58,7 @@ Codex 每轮执行时应：
 ### Milestone 5：随机事件
 
 - [x] Task 5.1：事件数据结构
-- [ ] Task 5.2：EventDirector
+- [x] Task 5.2：EventDirector
 - [ ] Task 5.3：EventChoicePanel
 - [ ] Task 5.4：MVP 事件内容
 
@@ -290,3 +290,14 @@ Codex 每轮执行时应：
 - 邮件：已发送到 `wuchenglin.yulu@gmail.com`，主题 `Codex 任务完成: Task 5.1 事件数据结构`。
 - 结果：Task 5.1 完成。
 - 下一步：Task 5.2 EventDirector。
+
+### 2026-05-15 12:18 - Task 5.2 EventDirector
+
+- 目标：根据路线、天气、时间和资源状态，从 eligible events 中生成事件候选并调整权重。
+- 改动：新增 `scripts/events/RoadEventDirector.cs` 与 `tests/Godot_V2.Tests/RoadEventDirectorTests.cs`。
+- TDD：先运行 `dotnet test tests\Godot_V2.Tests\Godot_V2.Tests.csproj --filter RoadEventDirectorTests`，失败原因是 `RoadEventDirector` 不存在；实现后同一测试 4/4 通过。
+- 验证：`dotnet test tests\Godot_V2.Tests\Godot_V2.Tests.csproj` 通过，58/58 tests passed；`dotnet build Godot_V2.csproj` 通过，0 warnings / 0 errors；`git diff --check` 通过。
+- 视觉：本任务为纯事件导演逻辑，无场景、UI 或渲染改动。
+- 邮件：已发送到 `wuchenglin.yulu@gmail.com`，主题 `Codex 任务完成: Task 5.2 EventDirector`。
+- 结果：Task 5.2 完成。
+- 下一步：Task 5.3 EventChoicePanel。
