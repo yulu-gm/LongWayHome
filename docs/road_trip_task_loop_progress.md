@@ -18,10 +18,10 @@ Codex 每轮执行时应：
 
 ## 当前状态
 
-- 当前任务：Task 4.3 下一路线选择（入口切片已完成，完整二轮循环未完成）
+- 当前任务：无
 - 当前阻塞：无
-- 下一建议任务：Task 4.3b 完整“驾驶 → 地点 → 选择下一路线”二轮循环
-- 最近验证：`dotnet test tests\Godot_V2.Tests\Godot_V2.Tests.csproj` 通过，50/50 tests passed；`dotnet build Godot_V2.csproj` 通过，0 warnings / 0 errors；`route_selection_panel_smoke_test.gd`、`service_panel_smoke_test.gd`、`driving_hud_smoke_test.gd`、`debug_panel_toggle_test.gd`、`vehicle_scene_smoke_test.gd`、`road_segment_spawner_smoke_test.gd`、左右转向 Godot 烟测通过；`capture_drive_sandbox.gd`、`capture_service_panel.gd`、`capture_route_selection_panel.gd` 成功刷新截图
+- 下一建议任务：Task 5.1 事件数据结构
+- 最近验证：`dotnet test tests\Godot_V2.Tests\Godot_V2.Tests.csproj` 通过，50/50 tests passed；`dotnet build Godot_V2.csproj` 通过，0 warnings / 0 errors；`route_loop_two_cycles_smoke_test.gd`、`route_selection_panel_smoke_test.gd`、`service_panel_smoke_test.gd`、`driving_hud_smoke_test.gd`、`debug_panel_toggle_test.gd`、`vehicle_scene_smoke_test.gd`、`road_segment_spawner_smoke_test.gd`、左右转向 Godot 烟测通过；`capture_drive_sandbox.gd`、`capture_route_selection_panel.gd` 成功刷新截图
 - 邮件通知要求：每完成一个任务必须发送邮件；发送失败也必须记录原因
 - 视觉要求：实现时必须参考 `design.png` 与 `docs/road_trip_scene_visual_reference_cn.md` 的 2.5D 公路旅行氛围；无法逼近时更新 `docs/road_trip_visual_asset_gaps.md`
 
@@ -53,7 +53,7 @@ Codex 每轮执行时应：
 
 - [x] Task 4.1：PlaceDefinition
 - [x] Task 4.2：ServicePanel
-- [ ] Task 4.3：下一路线选择
+- [x] Task 4.3：下一路线选择
 
 ### Milestone 5：随机事件
 
@@ -269,3 +269,13 @@ Codex 每轮执行时应：
 - 邮件：已发送到 `wuchenglin.yulu@gmail.com`，主题 `Codex 任务完成: Task 4.3a 下一路线选择入口`。
 - 结果：Task 4.3 入口切片完成；Task 4.3 整体仍未完成。
 - 下一步：Task 4.3b 完整“驾驶 → 地点 → 选择下一路线”二轮循环。
+
+### 2026-05-15 12:10 - Task 4.3 下一路线选择收口
+
+- 目标：补齐 `Task 4.3` 验收里的至少两次“服务 → 路线选择 → 回到驾驶”循环回归，确认上一切片能连续使用而不是只跑一次。
+- 改动：新增 `tests/godot/route_loop_two_cycles_smoke_test.gd`；更新本进度板，将 `Task 4.3` 标记完成。
+- 验证：`dotnet test tests\Godot_V2.Tests\Godot_V2.Tests.csproj` 通过，50/50 tests passed；`dotnet build Godot_V2.csproj` 通过，0 warnings / 0 errors；`route_loop_two_cycles_smoke_test.gd`、`route_selection_panel_smoke_test.gd`、`service_panel_smoke_test.gd`、`driving_hud_smoke_test.gd`、`debug_panel_toggle_test.gd`、`road_segment_spawner_smoke_test.gd`、`vehicle_scene_smoke_test.gd`、`vehicle_steering_direction_test.gd` 左右方向均通过；`capture_drive_sandbox.gd` 与 `capture_route_selection_panel.gd` 刷新截图。
+- 视觉：路线选择仍是右侧深色半透明列表式占位，能读出目的地、距离、风险、天气和服务；真实地图底图、路线曲线、节点图标和服务/传闻标记仍按 `docs/road_trip_visual_asset_gaps.md` 记录为后续缺口。
+- 邮件：已发送到 `wuchenglin.yulu@gmail.com`，主题 `Codex 任务完成: Task 4.3 下一路线选择`。
+- 结果：Task 4.3 完成。
+- 下一步：Task 5.1 事件数据结构。
