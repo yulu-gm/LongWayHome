@@ -20,8 +20,8 @@ Codex 每轮执行时应：
 
 - 当前任务：无
 - 当前阻塞：无
-- 下一建议任务：Task 4.2 ServicePanel
-- 最近验证：`dotnet test tests\Godot_V2.Tests\Godot_V2.Tests.csproj` 通过，43/43 tests passed；`dotnet build Godot_V2.csproj` 通过，0 warnings / 0 errors；`road_segment_spawner_smoke_test.gd`、`vehicle_scene_smoke_test.gd`、`driving_hud_smoke_test.gd`、`debug_panel_toggle_test.gd`、左右转向 Godot 烟测通过；`capture_drive_sandbox.gd` 成功保存截图到 `tmp/drive_sandbox_smoke.png`
+- 下一建议任务：Task 4.3 下一路线选择
+- 最近验证：`dotnet test tests\Godot_V2.Tests\Godot_V2.Tests.csproj` 通过，48/48 tests passed；`dotnet build Godot_V2.csproj` 通过，0 warnings / 0 errors；`service_panel_smoke_test.gd`、`driving_hud_smoke_test.gd`、`debug_panel_toggle_test.gd`、`vehicle_scene_smoke_test.gd`、`road_segment_spawner_smoke_test.gd`、左右转向 Godot 烟测通过；`capture_drive_sandbox.gd` 成功保存截图到 `tmp/drive_sandbox_smoke.png`；`capture_service_panel.gd` 成功保存截图到 `tmp/service_panel_smoke.png`
 - 邮件通知要求：每完成一个任务必须发送邮件；发送失败也必须记录原因
 - 视觉要求：实现时必须参考 `design.png` 与 `docs/road_trip_scene_visual_reference_cn.md` 的 2.5D 公路旅行氛围；无法逼近时更新 `docs/road_trip_visual_asset_gaps.md`
 
@@ -52,7 +52,7 @@ Codex 每轮执行时应：
 ### Milestone 4：地点与服务
 
 - [x] Task 4.1：PlaceDefinition
-- [ ] Task 4.2：ServicePanel
+- [x] Task 4.2：ServicePanel
 - [ ] Task 4.3：下一路线选择
 
 ### Milestone 5：随机事件
@@ -247,3 +247,14 @@ Codex 每轮执行时应：
 - 邮件：两次发送均失败，脚本返回 `send_failed: Failure sending mail`；未标记为已发送。
 - 结果：RoadSegmentSpawner 切线对齐修复完成。
 - 下一步：Task 4.2 ServicePanel。
+
+### 2026-05-15 11:46 - Task 4.2 ServicePanel
+
+- 目标：玩家抵达服务点后能打开服务界面，查看加油、住宿、维修、购买基础补给、短暂休息的资源变化预览，并在金钱不足或地点不提供服务时看到禁用原因。
+- 改动：新增 `scripts/places/PlaceServiceResolver.cs`、`scripts/ui/ServicePanel.cs`、`scenes/ui/ServicePanel.tscn`、`tests/Godot_V2.Tests/PlaceServiceResolverTests.cs`、`tests/godot/service_panel_smoke_test.gd`、`tests/godot/capture_service_panel.gd`；更新 `scripts/sandbox/DriveSandbox.cs` 和 `scenes/DriveSandbox.tscn` 接入 `ServicePanel` 与 `toggle_service_panel` 输入。
+- TDD：先运行 `dotnet test tests\Godot_V2.Tests\Godot_V2.Tests.csproj --filter PlaceServiceResolverTests`，失败原因是 `PlaceServiceResolver` 不存在；先运行 `service_panel_smoke_test.gd`，失败原因是 `ServicePanel` 不存在。实现后同一 C# 测试 5/5 通过，Godot 服务面板烟测通过。
+- 验证：`dotnet test tests\Godot_V2.Tests\Godot_V2.Tests.csproj` 通过，48/48 tests passed；`dotnet build Godot_V2.csproj` 通过，0 warnings / 0 errors；`service_panel_smoke_test.gd`、`driving_hud_smoke_test.gd`、`debug_panel_toggle_test.gd`、`vehicle_scene_smoke_test.gd`、`road_segment_spawner_smoke_test.gd`、`vehicle_steering_direction_test.gd` 左右方向均通过；`capture_drive_sandbox.gd` 与 `capture_service_panel.gd` 分别保存截图到 `tmp/drive_sandbox_smoke.png`、`tmp/service_panel_smoke.png`。
+- 视觉：对应 `design.png` 的“休息站 / 汽车旅馆”服务界面和第二参考图的“可互动地点 / POI”“UI 深色半透明底、琥珀色重点信息”。已实现右侧深色半透明服务面板、中文地点/服务列表、资源变化预览、不可用原因和琥珀色强调。仍缺正式服务图标、地点背景图、加油站/汽车旅馆/修理铺外观资产，已更新 `docs/road_trip_visual_asset_gaps.md`。
+- 邮件：已发送到 `wuchenglin.yulu@gmail.com`，主题 `Codex 任务完成: Task 4.2 ServicePanel`。
+- 结果：Task 4.2 完成。
+- 下一步：Task 4.3 下一路线选择。

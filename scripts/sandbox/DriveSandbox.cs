@@ -1,5 +1,6 @@
 using Godot;
 using Godot_V2.Scripts.Gameplay;
+using Godot_V2.Scripts.Places;
 using Godot_V2.Scripts.Vehicles.Runtime;
 
 namespace Godot_V2.Scripts.Sandbox;
@@ -7,6 +8,8 @@ namespace Godot_V2.Scripts.Sandbox;
 public partial class DriveSandbox : Node3D
 {
     public TripState TripState { get; private set; } = TripState.CreateNew();
+    public PlaceDefinition CurrentPlace { get; private set; } =
+        PlaceCatalog.CreateDefaults().First(place => place.Type == PlaceType.FuelStation);
 
     public override void _Ready()
     {
@@ -16,6 +19,7 @@ public partial class DriveSandbox : Node3D
         EnsureInputAction("drive_steer_right", Key.D);
         EnsureInputAction("drive_handbrake", Key.Shift);
         EnsureInputAction("toggle_debug_panel", Key.Tab);
+        EnsureInputAction("toggle_service_panel", Key.E);
         Input.MouseMode = Input.MouseModeEnum.Visible;
         GetNodeOrNull<VehicleController>("PrototypeCar")?.ApplyTripStateEffects(TripState);
     }
