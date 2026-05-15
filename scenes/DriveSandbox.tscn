@@ -1,0 +1,100 @@
+[gd_scene load_steps=14 format=3]
+
+[ext_resource type="Script" path="res://scripts/sandbox/DriveSandbox.cs" id="1_sandbox"]
+[ext_resource type="PackedScene" path="res://scenes/vehicles/PrototypeCar.tscn" id="2_car"]
+[ext_resource type="Script" path="res://scripts/camera/IsoFollowCamera.cs" id="3_camera"]
+[ext_resource type="PackedScene" path="res://scenes/ui/VehicleDebugPanel.tscn" id="4_panel"]
+[ext_resource type="PackedScene" path="res://scenes/ui/DrivingHud.tscn" id="5_hud"]
+[ext_resource type="Script" path="res://scripts/world/RoadSegmentSpawner.cs" id="6_spawner"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ground"]
+size = Vector3(520, 0.2, 520)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ground"]
+size = Vector2(520, 520)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ground"]
+albedo_color = Color(0.28, 0.34, 0.3, 1)
+roughness = 0.9
+
+[sub_resource type="BoxMesh" id="BoxMesh_road"]
+size = Vector3(18, 0.035, 95)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_road"]
+albedo_color = Color(0.12, 0.13, 0.14, 1)
+roughness = 0.82
+
+[sub_resource type="BoxMesh" id="BoxMesh_stripe"]
+size = Vector3(0.22, 0.045, 4.0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_stripe"]
+albedo_color = Color(1, 0.82, 0.22, 1)
+emission_enabled = true
+emission = Color(0.45, 0.31, 0.05, 1)
+
+[node name="DriveSandbox" type="Node3D"]
+script = ExtResource("1_sandbox")
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.707107, -0.353553, 0.612372, 0, 0.866025, 0.5, -0.707107, -0.353553, 0.612372, 0, 12, 0)
+light_energy = 2.2
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+
+[node name="Ground" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
+
+[node name="GroundCollision" type="CollisionShape3D" parent="Ground"]
+shape = SubResource("BoxShape3D_ground")
+
+[node name="GroundMesh" type="MeshInstance3D" parent="Ground"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.101, 0)
+mesh = SubResource("PlaneMesh_ground")
+material_override = SubResource("StandardMaterial3D_ground")
+
+[node name="RoadSegmentSpawner" type="Node3D" parent="."]
+script = ExtResource("6_spawner")
+TargetPath = NodePath("../PrototypeCar")
+
+[node name="RoadMesh" type="MeshInstance3D" parent="."]
+visible = false
+transform = Transform3D(0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, 0, 0.012, 0)
+mesh = SubResource("BoxMesh_road")
+material_override = SubResource("StandardMaterial3D_road")
+
+[node name="CenterStripeA" type="MeshInstance3D" parent="."]
+visible = false
+transform = Transform3D(0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, 0, 0.045, -16)
+mesh = SubResource("BoxMesh_stripe")
+material_override = SubResource("StandardMaterial3D_stripe")
+
+[node name="CenterStripeB" type="MeshInstance3D" parent="."]
+visible = false
+transform = Transform3D(0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, 0, 0.045, -6)
+mesh = SubResource("BoxMesh_stripe")
+material_override = SubResource("StandardMaterial3D_stripe")
+
+[node name="CenterStripeC" type="MeshInstance3D" parent="."]
+visible = false
+transform = Transform3D(0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, 0, 0.045, 4)
+mesh = SubResource("BoxMesh_stripe")
+material_override = SubResource("StandardMaterial3D_stripe")
+
+[node name="CenterStripeD" type="MeshInstance3D" parent="."]
+visible = false
+transform = Transform3D(0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, 0, 0.045, 14)
+mesh = SubResource("BoxMesh_stripe")
+material_override = SubResource("StandardMaterial3D_stripe")
+
+[node name="PrototypeCar" parent="." instance=ExtResource("2_car")]
+transform = Transform3D(0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, 0, 0.62, 0)
+
+[node name="IsoCamera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.747409, 0.664364, 0, -0.664364, 0.747409, 0, 18, 16)
+script = ExtResource("3_camera")
+TargetPath = NodePath("../PrototypeCar")
+
+[node name="DrivingHud" parent="." instance=ExtResource("5_hud")]
+
+[node name="VehicleDebugPanel" parent="." instance=ExtResource("4_panel")]

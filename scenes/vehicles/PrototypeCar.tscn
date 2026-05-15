@@ -1,0 +1,86 @@
+[gd_scene format=3 uid="uid://defx127kl32om"]
+
+[ext_resource type="Script" uid="uid://bfbw8cd7iuaay" path="res://scripts/vehicles/runtime/VehicleController.cs" id="1_vehicle"]
+[ext_resource type="Script" uid="uid://cfn7w1385tdji" path="res://scripts/vehicles/runtime/RaycastWheel.cs" id="2_wheel"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_body"]
+size = Vector3(1.75, 0.55, 4.2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_body"]
+albedo_color = Color(0.74, 0.13, 0.12, 1)
+roughness = 0.58
+
+[sub_resource type="BoxMesh" id="BoxMesh_body"]
+size = Vector3(1.75, 0.55, 4.2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wheel"]
+albedo_color = Color(0.025, 0.028, 0.032, 1)
+roughness = 0.72
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_rfwjd"]
+height = 0.2
+
+[node name="PrototypeCar" type="RigidBody3D" unique_id=1513390127]
+mass = 1420.0
+continuous_cd = true
+contact_monitor = true
+max_contacts_reported = 8
+script = ExtResource("1_vehicle")
+
+[node name="BodyCollision" type="CollisionShape3D" parent="." unique_id=1593823772]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.42, 0)
+shape = SubResource("BoxShape3D_body")
+
+[node name="BodyMesh" type="MeshInstance3D" parent="." unique_id=1416356862]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.42, 0)
+material_override = SubResource("StandardMaterial3D_body")
+mesh = SubResource("BoxMesh_body")
+
+[node name="Wheels" type="Node3D" parent="." unique_id=2083055497]
+
+[node name="FrontLeftWheel" type="Marker3D" parent="Wheels" unique_id=297552118]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.86, 0.2, -1.35)
+script = ExtResource("2_wheel")
+IsSteeringWheel = true
+VisualPath = NodePath("Visual")
+
+[node name="Visual" type="MeshInstance3D" parent="Wheels/FrontLeftWheel" unique_id=1311257359]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, -0.1, 0, 0)
+material_override = SubResource("StandardMaterial3D_wheel")
+mesh = SubResource("CylinderMesh_rfwjd")
+
+[node name="FrontRightWheel" type="Marker3D" parent="Wheels" unique_id=1826031218]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.86, 0.2, -1.35)
+script = ExtResource("2_wheel")
+WheelPosition = 1
+IsSteeringWheel = true
+VisualPath = NodePath("Visual")
+
+[node name="Visual" type="MeshInstance3D" parent="Wheels/FrontRightWheel" unique_id=2092327616]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0.1, 0, 0)
+material_override = SubResource("StandardMaterial3D_wheel")
+mesh = SubResource("CylinderMesh_rfwjd")
+
+[node name="RearLeftWheel" type="Marker3D" parent="Wheels" unique_id=2049162062]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.86, 0.2, 1.35)
+script = ExtResource("2_wheel")
+WheelPosition = 2
+IsRearWheel = true
+VisualPath = NodePath("Visual")
+
+[node name="Visual" type="MeshInstance3D" parent="Wheels/RearLeftWheel" unique_id=1467033084]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, -0.1, 0, 0)
+material_override = SubResource("StandardMaterial3D_wheel")
+mesh = SubResource("CylinderMesh_rfwjd")
+
+[node name="RearRightWheel" type="Marker3D" parent="Wheels" unique_id=1922058328]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.86, 0.2, 1.35)
+script = ExtResource("2_wheel")
+WheelPosition = 3
+IsRearWheel = true
+VisualPath = NodePath("Visual")
+
+[node name="Visual" type="MeshInstance3D" parent="Wheels/RearRightWheel" unique_id=2027935228]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0.1, 0, 0)
+material_override = SubResource("StandardMaterial3D_wheel")
+mesh = SubResource("CylinderMesh_rfwjd")
