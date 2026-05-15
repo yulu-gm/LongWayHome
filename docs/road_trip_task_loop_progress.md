@@ -20,8 +20,8 @@ Codex 每轮执行时应：
 
 - 当前任务：无
 - 当前阻塞：无
-- 下一建议任务：Task 5.4 MVP 事件内容
-- 最近验证：`dotnet test tests\Godot_V2.Tests\Godot_V2.Tests.csproj` 通过，60/60 tests passed；`dotnet build Godot_V2.csproj` 通过，0 warnings / 0 errors；`event_choice_panel_smoke_test.gd`、`route_loop_two_cycles_smoke_test.gd`、`route_selection_panel_smoke_test.gd`、`service_panel_smoke_test.gd`、`driving_hud_smoke_test.gd`、`debug_panel_toggle_test.gd`、`road_segment_spawner_smoke_test.gd`、`vehicle_scene_smoke_test.gd`、左右转向 Godot 烟测通过；`capture_drive_sandbox.gd`、`capture_event_choice_panel.gd` 成功刷新截图
+- 下一建议任务：Task 6.1 物品定义与车辆存储
+- 最近验证：`dotnet test tests\Godot_V2.Tests\Godot_V2.Tests.csproj` 通过，63/63 tests passed；`dotnet build Godot_V2.csproj` 通过，0 warnings / 0 errors
 - 邮件通知要求：每完成一个任务必须发送邮件；发送失败也必须记录原因
 - 视觉要求：实现时必须参考 `design.png` 与 `docs/road_trip_scene_visual_reference_cn.md` 的 2.5D 公路旅行氛围；无法逼近时更新 `docs/road_trip_visual_asset_gaps.md`
 
@@ -60,7 +60,7 @@ Codex 每轮执行时应：
 - [x] Task 5.1：事件数据结构
 - [x] Task 5.2：EventDirector
 - [x] Task 5.3：EventChoicePanel
-- [ ] Task 5.4：MVP 事件内容
+- [x] Task 5.4：MVP 事件内容
 
 ### Milestone 6：车辆存储、物品与改装
 
@@ -312,3 +312,15 @@ Codex 每轮执行时应：
 - 邮件：已发送到 `wuchenglin.yulu@gmail.com`，主题 `Codex 任务完成: Task 5.3 EventChoicePanel`。
 - 结果：Task 5.3 完成。
 - 下一步：Task 5.4 MVP 事件内容。
+
+### 2026-05-15 12:31 - Task 5.4 MVP 事件内容
+
+- 目标：制作 12 个 MVP 事件，每个事件至少 2 个选项，每个选项至少改变一种状态或添加后续标记。
+- 改动：新增 `scripts/events/RoadEventCatalog.cs` 与 `tests/Godot_V2.Tests/RoadEventCatalogTests.cs`。
+- TDD：先运行 `dotnet test tests\Godot_V2.Tests\Godot_V2.Tests.csproj --filter RoadEventCatalogTests`，失败原因是 `RoadEventCatalog` 不存在；实现后同一测试 3/3 通过。
+- 验证：`dotnet test tests\Godot_V2.Tests\Godot_V2.Tests.csproj` 通过，63/63 tests passed；`dotnet build Godot_V2.csproj` 通过，0 warnings / 0 errors；`git diff --check` 通过。
+- 内容：已覆盖抛锚车辆、搭车者、路边商贩、临时施工、雨夜封路、油价上涨传闻、废弃小镇传闻、轮胎异响、车灯闪烁、深夜电台、汽车旅馆陌生人、旧磁带。
+- 视觉：本任务为纯事件内容数据，无场景、UI 或渲染改动；后续事件触发到真实路边 POI 仍需结合视觉资产缺口继续推进。
+- 邮件：已发送到 `wuchenglin.yulu@gmail.com`，主题 `Codex 任务完成: Task 5.4 MVP 事件内容`。
+- 结果：Task 5.4 完成。
+- 下一步：Task 6.1 物品定义与车辆存储。
