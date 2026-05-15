@@ -20,8 +20,8 @@ Codex 每轮执行时应：
 
 - 当前任务：无
 - 当前阻塞：无
-- 下一建议任务：Task 5.1 事件数据结构
-- 最近验证：`dotnet test tests\Godot_V2.Tests\Godot_V2.Tests.csproj` 通过，50/50 tests passed；`dotnet build Godot_V2.csproj` 通过，0 warnings / 0 errors；`route_loop_two_cycles_smoke_test.gd`、`route_selection_panel_smoke_test.gd`、`service_panel_smoke_test.gd`、`driving_hud_smoke_test.gd`、`debug_panel_toggle_test.gd`、`vehicle_scene_smoke_test.gd`、`road_segment_spawner_smoke_test.gd`、左右转向 Godot 烟测通过；`capture_drive_sandbox.gd`、`capture_route_selection_panel.gd` 成功刷新截图
+- 下一建议任务：Task 5.2 EventDirector
+- 最近验证：`dotnet test tests\Godot_V2.Tests\Godot_V2.Tests.csproj` 通过，54/54 tests passed；`dotnet build Godot_V2.csproj` 通过，0 warnings / 0 errors
 - 邮件通知要求：每完成一个任务必须发送邮件；发送失败也必须记录原因
 - 视觉要求：实现时必须参考 `design.png` 与 `docs/road_trip_scene_visual_reference_cn.md` 的 2.5D 公路旅行氛围；无法逼近时更新 `docs/road_trip_visual_asset_gaps.md`
 
@@ -57,7 +57,7 @@ Codex 每轮执行时应：
 
 ### Milestone 5：随机事件
 
-- [ ] Task 5.1：事件数据结构
+- [x] Task 5.1：事件数据结构
 - [ ] Task 5.2：EventDirector
 - [ ] Task 5.3：EventChoicePanel
 - [ ] Task 5.4：MVP 事件内容
@@ -279,3 +279,14 @@ Codex 每轮执行时应：
 - 邮件：已发送到 `wuchenglin.yulu@gmail.com`，主题 `Codex 任务完成: Task 4.3 下一路线选择`。
 - 结果：Task 4.3 完成。
 - 下一步：Task 5.1 事件数据结构。
+
+### 2026-05-15 12:14 - Task 5.1 事件数据结构
+
+- 目标：新增事件定义、选项、结果、触发条件、权重、冷却和一次性标记，为后续 `EventDirector` 与事件面板提供数据基础。
+- 改动：新增 `scripts/events/RoadEventDefinition.cs` 与 `tests/Godot_V2.Tests/RoadEventDefinitionTests.cs`。
+- TDD：先运行 `dotnet test tests\Godot_V2.Tests\Godot_V2.Tests.csproj --filter RoadEventDefinitionTests`，失败原因是 `Godot_V2.Scripts.Events`、`RoadEventDefinition`、`RoadEventTrigger` 不存在；实现后同一测试 4/4 通过。
+- 验证：`dotnet test tests\Godot_V2.Tests\Godot_V2.Tests.csproj` 通过，54/54 tests passed；`dotnet build Godot_V2.csproj` 通过，0 warnings / 0 errors；`git diff --check` 通过。
+- 视觉：本任务为纯事件数据模型，无场景、UI 或渲染改动。
+- 邮件：已发送到 `wuchenglin.yulu@gmail.com`，主题 `Codex 任务完成: Task 5.1 事件数据结构`。
+- 结果：Task 5.1 完成。
+- 下一步：Task 5.2 EventDirector。
