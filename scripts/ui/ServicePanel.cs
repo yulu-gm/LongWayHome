@@ -251,6 +251,12 @@ public partial class ServicePanel : CanvasLayer
             _statusLabel.Text = result.Message;
         }
 
+        if (result.Applied)
+        {
+            SetOpen(false);
+            GetParent()?.GetNodeOrNull<RouteSelectionPanel>("RouteSelectionPanel")?.OpenForCurrentLocation();
+        }
+
         Refresh();
     }
 

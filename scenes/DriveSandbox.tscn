@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3]
+[gd_scene load_steps=16 format=3]
 
 [ext_resource type="Script" path="res://scripts/sandbox/DriveSandbox.cs" id="1_sandbox"]
 [ext_resource type="PackedScene" path="res://scenes/vehicles/PrototypeCar.tscn" id="2_car"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" path="res://scenes/ui/DrivingHud.tscn" id="5_hud"]
 [ext_resource type="Script" path="res://scripts/world/RoadSegmentSpawner.cs" id="6_spawner"]
 [ext_resource type="PackedScene" path="res://scenes/ui/ServicePanel.tscn" id="7_service_panel"]
+[ext_resource type="PackedScene" path="res://scenes/ui/RouteSelectionPanel.tscn" id="8_route_selection"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ground"]
 size = Vector3(520, 0.2, 520)
@@ -99,5 +100,7 @@ TargetPath = NodePath("../PrototypeCar")
 [node name="DrivingHud" parent="." instance=ExtResource("5_hud")]
 
 [node name="ServicePanel" parent="." instance=ExtResource("7_service_panel")]
+
+[node name="RouteSelectionPanel" parent="." instance=ExtResource("8_route_selection")]
 
 [node name="VehicleDebugPanel" parent="." instance=ExtResource("4_panel")]

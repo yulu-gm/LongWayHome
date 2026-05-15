@@ -18,10 +18,10 @@ Codex 每轮执行时应：
 
 ## 当前状态
 
-- 当前任务：无
+- 当前任务：Task 4.3 下一路线选择（入口切片已完成，完整二轮循环未完成）
 - 当前阻塞：无
-- 下一建议任务：Task 4.3 下一路线选择
-- 最近验证：`dotnet test tests\Godot_V2.Tests\Godot_V2.Tests.csproj` 通过，48/48 tests passed；`dotnet build Godot_V2.csproj` 通过，0 warnings / 0 errors；`service_panel_smoke_test.gd`、`driving_hud_smoke_test.gd`、`debug_panel_toggle_test.gd`、`vehicle_scene_smoke_test.gd`、`road_segment_spawner_smoke_test.gd`、左右转向 Godot 烟测通过；`capture_drive_sandbox.gd` 成功保存截图到 `tmp/drive_sandbox_smoke.png`；`capture_service_panel.gd` 成功保存截图到 `tmp/service_panel_smoke.png`
+- 下一建议任务：Task 4.3b 完整“驾驶 → 地点 → 选择下一路线”二轮循环
+- 最近验证：`dotnet test tests\Godot_V2.Tests\Godot_V2.Tests.csproj` 通过，50/50 tests passed；`dotnet build Godot_V2.csproj` 通过，0 warnings / 0 errors；`route_selection_panel_smoke_test.gd`、`service_panel_smoke_test.gd`、`driving_hud_smoke_test.gd`、`debug_panel_toggle_test.gd`、`vehicle_scene_smoke_test.gd`、`road_segment_spawner_smoke_test.gd`、左右转向 Godot 烟测通过；`capture_drive_sandbox.gd`、`capture_service_panel.gd`、`capture_route_selection_panel.gd` 成功刷新截图
 - 邮件通知要求：每完成一个任务必须发送邮件；发送失败也必须记录原因
 - 视觉要求：实现时必须参考 `design.png` 与 `docs/road_trip_scene_visual_reference_cn.md` 的 2.5D 公路旅行氛围；无法逼近时更新 `docs/road_trip_visual_asset_gaps.md`
 
@@ -258,3 +258,14 @@ Codex 每轮执行时应：
 - 邮件：已发送到 `wuchenglin.yulu@gmail.com`，主题 `Codex 任务完成: Task 4.2 ServicePanel`。
 - 结果：Task 4.2 完成。
 - 下一步：Task 4.3 下一路线选择。
+
+### 2026-05-15 12:01 - Task 4.3a 下一路线选择入口
+
+- 目标：先打通 `Task 4.3` 的最小入口切片：服务执行成功后打开路线选择面板，玩家能选择下一条路线并回到驾驶。
+- 改动：新增 `scripts/world/RouteSelectionResolver.cs`、`scripts/ui/RouteSelectionPanel.cs`、`scenes/ui/RouteSelectionPanel.tscn`、`tests/Godot_V2.Tests/RouteSelectionResolverTests.cs`、`tests/godot/route_selection_panel_smoke_test.gd`、`tests/godot/capture_route_selection_panel.gd`；更新 `scripts/sandbox/DriveSandbox.cs`、`scripts/ui/ServicePanel.cs`、`scenes/DriveSandbox.tscn`，让服务成功后进入路线选择，并让选中路线更新 `TripState` 的当前位置、目标距离和天气。
+- TDD：先运行 `dotnet test tests\Godot_V2.Tests\Godot_V2.Tests.csproj --filter RouteSelectionResolverTests`，失败原因是 `RouteSelectionResolver` 不存在；先运行 `route_selection_panel_smoke_test.gd`，失败原因是 `RouteSelectionPanel` 不存在。实现后同一 C# 测试 2/2 通过，Godot 路线选择烟测通过。
+- 验证：`dotnet test tests\Godot_V2.Tests\Godot_V2.Tests.csproj` 通过，50/50 tests passed；`dotnet build Godot_V2.csproj` 通过，0 warnings / 0 errors；`route_selection_panel_smoke_test.gd`、`service_panel_smoke_test.gd`、`driving_hud_smoke_test.gd`、`debug_panel_toggle_test.gd`、`vehicle_scene_smoke_test.gd`、`road_segment_spawner_smoke_test.gd`、`vehicle_steering_direction_test.gd` 左右方向均通过；`capture_drive_sandbox.gd`、`capture_service_panel.gd`、`capture_route_selection_panel.gd` 分别刷新截图。
+- 视觉：对应 `design.png` 的“地图与导航”入口方向和第二参考图的“可互动地点 / POI”。已实现右侧深色半透明路线列表、目的地/距离/道路类型/风险/天气/服务预览，并修复了空路线行边框残留。仍是列表式占位，不是参考图中的真实地图路线图，已更新 `docs/road_trip_visual_asset_gaps.md`。
+- 邮件：已发送到 `wuchenglin.yulu@gmail.com`，主题 `Codex 任务完成: Task 4.3a 下一路线选择入口`。
+- 结果：Task 4.3 入口切片完成；Task 4.3 整体仍未完成。
+- 下一步：Task 4.3b 完整“驾驶 → 地点 → 选择下一路线”二轮循环。
